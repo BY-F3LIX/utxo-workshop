@@ -6,6 +6,19 @@ name = 'utxo-runtime'
 repository = 'https://github.com/substrate-developers-hub/utxo-workshop'
 version = '2.0.0'
 
+rustc-link-lib = ["test"]
+
+[dependencies.curve25519-dalek]
+features = ["serde"]
+version = '3'
+
+[dependencies.rand]
+version = '0.7.3'
+
+[dependencies.sha3]
+version = '0.9.1'
+
+
 [dependencies.balances]
 default-features = false
 package = 'pallet-balances'

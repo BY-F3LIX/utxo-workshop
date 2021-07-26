@@ -1,7 +1,7 @@
 use sp_core::{Pair, Public, sr25519, H256};
 use utxo_runtime::{
 	AccountId, BalancesConfig, GenesisConfig, DifficultyAdjustmentConfig,
-	SudoConfig, SystemConfig, WASM_BINARY, Signature,
+	SudoConfig, SystemConfig, WASM_BINARY, Signature, UtxoConfig,
 };
 use sc_service;
 use sp_runtime::traits::{Verify, IdentifyAccount};
@@ -42,6 +42,11 @@ pub fn development_config() -> ChainSpec {
 				get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
 			],
+			//genesis set of pubkey
+			vec![
+				get_from_seed::<sr25519::Public>("Alice"),
+				get_from_seed::<sr25519::Public>("Bob"),
+			],
 			true,
 		),
 		vec![],
@@ -73,6 +78,10 @@ pub fn local_testnet_config() -> ChainSpec {
 				get_account_id_from_seed::<sr25519::Public>("Eve//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
 			],
+			vec![
+				get_from_seed::<sr25519::Public>("Alice"),
+				get_from_seed::<sr25519::Public>("Bob"),
+			],
 			true,
 		),
 		vec![],
@@ -86,6 +95,7 @@ pub fn local_testnet_config() -> ChainSpec {
 fn testnet_genesis(
 	root_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
+	endowed_utxos : Vec<sr25519::Public>,
 	_enable_println: bool
 ) -> GenesisConfig {
 	
@@ -103,5 +113,16 @@ fn testnet_genesis(
 		difficulty: Some(DifficultyAdjustmentConfig {
 			initial_difficulty: 4_000_000.into(),
 		}),
+		utxo: Some(UtxoConfig {
+			genesis_utxos: endowed_utxos
+			  .iter()
+			  .map(|x|
+				  utxo::TransactionOutput {
+					  value: 100 as utxo::Value,
+					  pubkey: H256::from_slice(x.as_slice()),
+				  }
+			  )
+			  .collect()
+		  }),
 	}
 }

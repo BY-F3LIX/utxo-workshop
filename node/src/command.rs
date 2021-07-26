@@ -20,6 +20,8 @@ use crate::cli::{Cli, Subcommand};
 use sc_cli::{SubstrateCli, RuntimeVersion, Role, ChainSpec};
 use sc_service::PartialComponents;
 
+use swapct;
+
 impl SubstrateCli for Cli {
 	fn impl_name() -> String {
 		"Substrate Node".into()

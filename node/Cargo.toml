@@ -9,6 +9,10 @@ version = '2.0.0'
 [build-dependencies]
 substrate-build-script-utils = '2.0.0'
 
+[dependencies.swapct]
+path = './SwapCT'
+default-features = false
+
 [dependencies.utxo-runtime]
 path = '../runtime'
 version = '2.0.0'
