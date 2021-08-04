@@ -3,4 +3,8 @@
 
 .\target\release\utxo-workshop.exe --chain=local --base-path ./tmp/two/ --bob --node-key=6ce3be907dbcabf20a9a5a60a712b4256a54196000a8ed4050d352bc113f8c58 --port 30334 --ws-port 9945
 
+
+./target/release/utxo-workshop --chain=local --base-path ./tmp/one/ --validator --port 30333 --ws-port 9944
+
+
 https://substrate.dev/docs/en/tutorials/build-permission-network/launch-network
