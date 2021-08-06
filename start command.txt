@@ -9,5 +9,10 @@
 
 https://substrate.dev/docs/en/tutorials/build-permission-network/launch-network
 
+docker build . -t test
+docker run -p 127.0.0.1:9944:9944 -it test
+python main.py examples/example-containers.yaml
+
+
 
 ssh ubuntu@epycsampl-4a.informatik.uni-ulm.de
