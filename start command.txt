@@ -10,7 +10,7 @@
 https://substrate.dev/docs/en/tutorials/build-permission-network/launch-network
 
 docker build . -t test
-docker run -p 127.0.0.1:9944:9944 -it test
+docker run -p 9944:9944 -it test
 python main.py examples/example-containers.yaml
 
 
