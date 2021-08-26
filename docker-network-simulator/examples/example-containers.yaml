@@ -1,0 +1,28 @@
+setup:
+    version: '3'
+    services:
+      node1:
+        image: test
+        network_mode: "none"
+      node2:
+        image: test
+        network_mode: "none"
+        #command: --scale SERVICE=NUM
+events:
+    event1:
+        seconds: 2
+        do:
+            stopContainer: ["node1"]
+            stopContainer: ["node2"]
+    event2:
+        dependOn: ["event1"]
+        seconds: 2
+        do:
+            startContainer: ["node1"]
+            startContainer: ["node2"]
+    event3:
+        dependOn: ["event2"]
+        seconds: 2
+        do:
+            stopContainer: ["node1"]
+            stopContainer: ["node2"]

@@ -1,0 +1,153 @@
+setup:
+    version: '3'
+    services:
+      Node0:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-0"]
+      Node1:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-1"]
+      Node2:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-2"]
+      Node3:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-3"]
+      Node4:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-4"]
+      Node5:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-5"]
+      Node6:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-6"]
+      Node7:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-7"]
+      Node8:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-8"]
+      Node9:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-9"]
+      Node10:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-10"]
+      Node11:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-11"]
+      Node12:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-12"]
+      Node13:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-13"]
+      Node14:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-14"]
+      Node15:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-15"]
+      Node16:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-16"]
+      Node17:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-17"]
+      Node18:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-18"]
+      Node19:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-19"]
+      Node20:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-20"]
+      Node21:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-21"]
+      Node22:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-22"]
+      Node23:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-23"]
+      Node24:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-24"]
+      Node25:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-25"]
+      Node26:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-26"]
+      Node27:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-27"]
+      Node28:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-28"]
+      Node29:
+        image: node
+        volumes:
+          - ~/logs:/var/tmp/
+        command: ["Node-29"]

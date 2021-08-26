@@ -13,6 +13,21 @@ docker build . -t test
 docker run -p 9944:9944 -it test
 python main.py examples/example-containers.yaml
 
+Fixes
+sudo chmod 666 /var/run/docker.sock
+Toggling network.websocket.allowInsecureFromHTTPS to true from about:config makes the error disappear.
 
 
 ssh ubuntu@epycsampl-4a.informatik.uni-ulm.de
+
+
+TODO:
+- network.yaml generator
+- generate network
+x get log files
+- parse log files for R
+- compile on server
+- load everything on the server and start simulate
+- network.yaml parser to graph
+- visualize in R
+- make automatic transations

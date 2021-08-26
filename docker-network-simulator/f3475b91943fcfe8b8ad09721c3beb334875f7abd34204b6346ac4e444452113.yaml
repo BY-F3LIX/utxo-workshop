@@ -1,0 +1,8 @@
+services:
+  node1:
+    image: test
+    network_mode: none
+  node2:
+    image: test
+    network_mode: none
+version: '3'
