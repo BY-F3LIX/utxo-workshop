@@ -27,12 +27,12 @@ sudo rm ~/logs/*; docker-compose rm -f;  docker-compose up --build --remove-orph
 rm -r ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs; cp -R ~/logs ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs
 
 TODO:
-- network.yaml generator
-- generate network
+~ network.yaml generator
+~ generate network
 x get log files
 z parse log files for R
 z visualize in R
 z network.yaml parser to graph with R
-- compile on server
+z compile on server
 - load everything on the server and start simulate
 - make automatic transations

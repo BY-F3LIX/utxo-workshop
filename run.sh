@@ -17,9 +17,9 @@ if [[ -n $4 ]]; then
     listen="--reserved-nodes $4" 
     echo $listen
 fi
-64d6a1c09ea28d9e863d1cfe52e5d11fdcca4716febf0e5071299367b8eb15ac
-12D3KooWS5Z1PDPFVtNdAurtNxvHujpR8DRzbsbdgUofRP6B54SN
-12D3KooWS5Z1PDPFVtNdAurtNxvHujpR8DRzbsbdgUofRP6B54SN
+#64d6a1c09ea28d9e863d1cfe52e5d11fdcca4716febf0e5071299367b8eb15ac
+#12D3KooWS5Z1PDPFVtNdAurtNxvHujpR8DRzbsbdgUofRP6B54SN
+#12D3KooWS5Z1PDPFVtNdAurtNxvHujpR8DRzbsbdgUofRP6B54SN
 # --port 30333 --ws-port 9944 --discover-local --no-mdns
 # --listen-addr
 # --ipc-path
