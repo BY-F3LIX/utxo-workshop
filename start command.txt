@@ -9,8 +9,8 @@
 
 https://substrate.dev/docs/en/tutorials/build-permission-network/launch-network
 
-docker build . -t test
-docker run -p 9944:9944 -it test
+docker build . -t node
+docker run -p 9944:9944 -it node
 python main.py examples/example-containers.yaml
 
 Fixes
@@ -18,16 +18,21 @@ sudo chmod 666 /var/run/docker.sock
 Toggling network.websocket.allowInsecureFromHTTPS to true from about:config makes the error disappear.
 
 
+cp -R ~/logs ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs
+
 ssh ubuntu@epycsampl-4a.informatik.uni-ulm.de
 
+
+sudo rm ~/logs/*; docker-compose rm -f;  docker-compose up --build --remove-orphans
+rm -r ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs; cp -R ~/logs ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs
 
 TODO:
 - network.yaml generator
 - generate network
 x get log files
-- parse log files for R
+z parse log files for R
+z visualize in R
+z network.yaml parser to graph with R
 - compile on server
 - load everything on the server and start simulate
-- network.yaml parser to graph
-- visualize in R
 - make automatic transations

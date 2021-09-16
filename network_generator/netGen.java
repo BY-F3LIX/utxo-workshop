@@ -7,8 +7,9 @@ import java.io.IOException;
  */
 public class netGen {
 
-    static String FILE_NAME = "network.yaml";
-    static int NODE_COUNT = 30;
+    static boolean DOCKER_COMPOSE = true;
+    static String FILE_NAME = "docker-compose.yaml";
+    static int NODE_COUNT = 25;
     static String MINER_IMAGE = "node";
 
     public static void main(String[] args) {
@@ -22,10 +23,11 @@ public class netGen {
             e.printStackTrace();
         }
 
-        String setup = "setup:\n    version: '3'\n    services:\n";
+        System.out.println(DOCKER_COMPOSE ? "Making Docker Compose file" : "Making docker network simulator file");
+        String setup = DOCKER_COMPOSE ? "version: '3.3'\nservices:\n" : "setup:\n    version: '3'\n    services:\n";
 
         for (int i = 0; i < NODE_COUNT; i++) {
-            String temp = "      Node" + i + ":\n        image: " + MINER_IMAGE + "\n        volumes:\n          - ~/logs:/var/tmp/\n        command: [\"Node-" + i +"\"]\n";
+            String temp = DOCKER_COMPOSE ? "  Node" + i + ":\n    image: " + MINER_IMAGE + "\n    volumes:\n      - ~/logs:/var/tmp/\n    command: [\"Node-" + i + "\"]\n" : "      Node" + i + ":\n        image: " + MINER_IMAGE + "\n        volumes:\n          - ~/logs:/var/tmp/\n        command: [\"Node-" + i +"\"]\n";
             setup += temp;
         }
 
