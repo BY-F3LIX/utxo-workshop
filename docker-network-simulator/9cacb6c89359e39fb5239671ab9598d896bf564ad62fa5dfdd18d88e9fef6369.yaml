@@ -1,0 +1,35 @@
+services:
+  Node0:
+    command:
+    - Node-0
+    - --validator
+    image: node
+    volumes:
+    - ~/logs:/var/tmp/
+  Node1:
+    command:
+    - Node-1
+    image: node
+    volumes:
+    - ~/logs:/var/tmp/
+  Node2:
+    command:
+    - Node-2
+    image: node
+    volumes:
+    - ~/logs:/var/tmp/
+  Node3:
+    command:
+    - Node-3
+    image: node
+    volumes:
+    - ~/logs:/var/tmp/
+  Node4:
+    command:
+    - Node-4
+    - --validator
+    - /var/tmp/public_addresses.txt
+    image: node
+    volumes:
+    - ~/logs:/var/tmp/
+version: '3'

@@ -26,6 +26,11 @@ ssh ubuntu@epycsampl-4a.informatik.uni-ulm.de
 sudo rm ~/logs/*; docker-compose rm -f;  docker-compose up --build --remove-orphans
 rm -r ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs; cp -R ~/logs ~/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs
 
+
+docker network create --gateway 192.168.1.1 --subnet 192.168.1.10/24 one
+
+
+
 TODO:
 ~ network.yaml generator
 ~ generate network
@@ -36,3 +41,21 @@ z network.yaml parser to graph with R
 z compile on server
 - load everything on the server and start simulate
 - make automatic transations
+
+
+new TODO:
+- get addr
+- make file per connector node
+- check if you can execute file in simulator software
+- implement in simulation software
+- make automatic generator
+
+
+
+javac retrieve_Addresses.java
+jar -cvfe App.jar retrieve_Addresses retrieve_Addresses.class
+java -jar App.jar
+
+DOCKER_BUILDKIT=1 docker build -t pumba -f docker/Dockerfile .
+
+docker kill $(docker ps -q)

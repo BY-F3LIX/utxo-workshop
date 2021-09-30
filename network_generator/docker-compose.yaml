@@ -4,35 +4,42 @@ services:
     image: node
     volumes:
       - ~/logs:/var/tmp/
-    command: ["Node-0","--validator", "/ip4/172.21.1.0/tcp/4000"]
+    command: ["Node-0","--validator"]
     networks: 
-      - main
+      - one
   Node1:
     image: node
     volumes:
       - ~/logs:/var/tmp/
     command: ["Node-1"]
     networks: 
-      - main
+      - one
   Node2:
     image: node
     volumes:
       - ~/logs:/var/tmp/
-    command: ["Node-2", "--node-key 64d6a1c09ea28d9e863d1cfe52e5d11fdcca4716febf0e5071299367b8eb15ac", "/ip4/172.21.1.2/tcp/4000"]
+    command: ["Node-2"]
     networks: 
-      - side
+      - two
   Node3:
     image: node
     volumes:
       - ~/logs:/var/tmp/
-    command: ["Node-3", " ", "/ip4/172.21.1.3/tcp/4000", "/ip4/172.21.1.2/tcp/4000/p2p/12D3KooWS5Z1PDPFVtNdAurtNxvHujpR8DRzbsbdgUofRP6B54SN"]
+    command: ["Node-3"]
     networks: 
-      - side
-      - main
-networks: 
-  main: 
-    driver: bridge
-    internal: false
-  side: 
-    driver: bridge
-    internal: false
+      - two
+  Node4:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node-4","--validator","/var/tmp/public_addresses.txt"]
+    #command: ["Node-4"]
+    networks: 
+      - one
+      - two
+networks:
+  one:
+    external: True 
+  two:
+    external: True 
+

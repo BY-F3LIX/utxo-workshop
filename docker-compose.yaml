@@ -1,0 +1,234 @@
+version: '3.3'
+services:
+  Node0:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node0" ,"  --validator --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node1:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node1" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node2:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node2" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net0
+      - connect1
+  Node3:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node3" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node4:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node4" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node5:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node5" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node6:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node6" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node7:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node7" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node8:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node8" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net0
+  Node9:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node9" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net0
+      - connect0
+  Node10:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node10" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node11:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node11" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net1
+      - connect1
+  Node12:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node12" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node13:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node13" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node14:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node14" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node15:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node15" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node16:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node16" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node17:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node17" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node18:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node18" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net1
+      - connect2
+  Node19:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node19" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net1
+  Node20:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node20" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net2
+  Node21:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node21" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net2
+      - connect0
+      - connect1
+      - connect2
+  Node22:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node22" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net2
+      - connect2
+  Node23:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node23" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net2
+  Node24:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node24" ,"  --max-parallel-downloads 5","/var/tmp/public_addresses.txt"]
+    networks:
+      - net2
+      - connect0
+  Node25:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node25" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net2
+  Node26:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["Node26" ,"  --max-parallel-downloads 5"]
+    networks:
+      - net2
+  ConNode0:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["ConNode0" ,"  --max-parallel-downloads 5"]
+    networks:
+      - connect0
+  ConNode1:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["ConNode1" ,"  --max-parallel-downloads 5"]
+    networks:
+      - connect1
+  ConNode2:
+    image: node
+    volumes:
+      - ~/logs:/var/tmp/
+    command: ["ConNode2" ,"  --max-parallel-downloads 5"]
+    networks:
+      - connect2
+networks:
+  net0:
+    external: True
+  net1:
+    external: True
+  net2:
+    external: True
+  connect0:
+    external: True
+  connect1:
+    external: True
+  connect2:
+    external: True

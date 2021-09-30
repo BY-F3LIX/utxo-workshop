@@ -10,23 +10,73 @@ import java.util.regex.Pattern;
 
 import javax.naming.TimeLimitExceededException;
 
+
 public class parseLogs {
 
-    static String PATH = "/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_generator/logs";
+    static String PATH = System.getProperty("user.home") + "/logs";
 
     static ArrayList<ArrayList<String>> timestamps = new ArrayList<>();
+
+    static int BLOCK = 5;
 
     public static void main(String[] args) {
         File[] files = new File(PATH).listFiles();
         for (File file : files) {
             parseFile(file);
         }
-        System.out.println("Block 3");
-        for (String string : timestamps.get(2)) {
-            System.out.println(string);
+        makeRecieverFile(timestamps, "r_graph");
+
+    }
+
+    private static void makeRecieverFile(ArrayList<ArrayList<String>> times, String fileName) {
+        long biggest = 0;
+        long nodes = 0;
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            for (int block = 3; block < times.size(); block++) {
+
+                SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss.SSS");
+
+                long[] timesLong = new long[times.get(block).size()];
+                for (int i = 0; i < times.get(block).size(); i++) {
+                    timesLong[i] = formatter.parse(times.get(block).get(i)).getTime();
+                }
+                Arrays.sort(timesLong);
+                long min = timesLong[0];
+                for (int i = 0; i < timesLong.length; i++) {
+                    timesLong[i] = timesLong[i] - min;
+                }
+                nodes = nodes < timesLong.length ? timesLong.length : nodes;
+                biggest = biggest < timesLong[timesLong.length - 1] ? timesLong[timesLong.length - 1] : biggest;
+                int[] atTime = new int[(int) timesLong[timesLong.length - 1] + 1];
+                for (int i = 0; i < atTime.length; i++) {
+                    for (int j = 0; j < timesLong.length; j++) {
+                        if (i >= timesLong[j])
+                            atTime[i]++;
+                    }
+                }
+                // writer.write("" + date.getTime() + " ");
+                // writer.write(Arrays.toString(atTime));
+
+                for (int i = 0; i < atTime.length; i++) {
+                    writer.write("" + atTime[i] + " ");
+                }
+                writer.write("\n");
+
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        writeToFile(timestamps, "R_file");
-        makeRecieverFile(timestamps, 3, "r_graph");
+
+        try{
+            FileWriter writer = new FileWriter("longestTime");
+            writer.write("" + biggest + " " + times.size() + " " + nodes);
+            writer.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -39,8 +89,6 @@ public class parseLogs {
         try {
             FileWriter writer = new FileWriter(fileName);
 
-            System.out.println(miner);
-
             long[] timesLong = new long[times.get(block).size()];
             for (int i = 0; i < times.get(block).size(); i++) {
                 timesLong[i] = formatter.parse(times.get(block).get(i)).getTime();
@@ -50,14 +98,15 @@ public class parseLogs {
             for (int i = 0; i < timesLong.length; i++) {
                 timesLong[i] = timesLong[i] - min;
             }
-            int[] atTime = new int[ (int) timesLong[timesLong.length -1] + 1]; 
+            int[] atTime = new int[(int) timesLong[timesLong.length - 1] + 1];
             for (int i = 0; i < atTime.length; i++) {
                 for (int j = 0; j < timesLong.length; j++) {
-                    if( i >= timesLong[j]) atTime[i]++;
+                    if (i >= timesLong[j])
+                        atTime[i]++;
                 }
             }
-            //writer.write("" + date.getTime() + " ");
-            //writer.write(Arrays.toString(atTime));
+            // writer.write("" + date.getTime() + " ");
+            // writer.write(Arrays.toString(atTime));
 
             for (int i = 0; i < atTime.length; i++) {
                 writer.write("" + atTime[i] + " ");
@@ -70,37 +119,27 @@ public class parseLogs {
         }
     }
 
-    private static void writeToFile(ArrayList<ArrayList<String>> times, String fileName) {
-        try {
-            FileWriter writer = new FileWriter(fileName);
-            writer.write("test");
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void parseFile(File file) {
-        String name = "";
-        boolean miner = false;
-        Pattern nameLinePattern = Pattern.compile(".*(Node name: )\\S*$");
-        Pattern roleLinePattern = Pattern.compile(".*(Role: )\\S*$");
+        //String name = "";
+        //boolean miner = false;
+        //boolean firstBlock = false;
+        //Pattern nameLinePattern = Pattern.compile(".*(Node name: )\\S*$");
+        //Pattern roleLinePattern = Pattern.compile(".*(Role: )\\S*$");
         Pattern importedPattern = Pattern.compile(".*(Imported #)(\\d+).*");
         try {
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {
                 String data = scan.nextLine();
                 // load name for Node
-                if (name.equals("") && nameLinePattern.matcher(data).matches()) {
-                    String[] temp = data.split(" ");
-                    name = temp[temp.length - 1];
-                    System.out.println(name);
-                }
-                if (miner == false && roleLinePattern.matcher(data).matches()) {
-                    String[] temp = data.split(" ");
-                    miner = temp[temp.length - 1].equals("AUTHORITY");
-                    System.out.println(miner ? "IS MINER!" : "is note");
-                }
+                //if (name.equals("") && nameLinePattern.matcher(data).matches()) {
+                //    String[] temp = data.split(" ");
+                //    name = temp[temp.length - 1];
+                //    System.out.println(name);
+                //}
+                //if (!firstBlock && miner == false && roleLinePattern.matcher(data).matches()) {
+                //    String[] temp = data.split(" ");
+                //    miner = temp[temp.length - 1].equals("AUTHORITY");
+                //}
 
                 if (importedPattern.matcher(data).matches()) {
                     String[] temp = data.split(" ");
@@ -110,8 +149,6 @@ public class parseLogs {
                     }
                     String time = data.split(" ")[1];
                     timestamps.get(block - 1).add(time);
-
-                    System.out.println("Block #" + block + " at " + time);
                 }
 
             }

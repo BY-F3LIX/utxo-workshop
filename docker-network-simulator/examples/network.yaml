@@ -6,176 +6,52 @@ setup:
         volumes:
           - ~/logs:/var/tmp/
         command: ["Node-0","--validator"]
-        cap_add:
-        - NET_ADMIN
       Node1:
         image: node
         volumes:
           - ~/logs:/var/tmp/
         command: ["Node-1"]
-        cap_add:
-        - NET_ADMIN
       Node2:
         image: node
         volumes:
           - ~/logs:/var/tmp/
         command: ["Node-2"]
-        cap_add:
-        - NET_ADMIN
       Node3:
         image: node
         volumes:
           - ~/logs:/var/tmp/
-        command: ["Node-3"]  
+        command: ["Node-3"]
       Node4:
         image: node
         volumes:
           - ~/logs:/var/tmp/
-        command: ["Node-4"]
-      Node5:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-5"]
-      Node6:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-6"]
-      Node7:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-7"]
-      Node8:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-8"]
-      Node9:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-9"]
-      Node10:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-10"]
-      Node11:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-11"]
-      Node12:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-12"]
-      Node13:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-13"]
-      Node14:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-14"]
-      Node15:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-15"]
-      Node16:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-16"]
-      Node17:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-17"]
-      Node18:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-18"]
-      Node19:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-19"]
-      Node20:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-20"]
-      Node21:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-21"]
-      Node22:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-22"]
-      Node23:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-23"]
-      Node24:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-24"]
-      Node25:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-25"]
-      Node26:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-26"]
-      Node27:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-27"]
-      Node28:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-28"]
-      Node29:
-        image: node
-        volumes:
-          - ~/logs:/var/tmp/
-        command: ["Node-29"]
+        command: ["Node-4","--validator","/var/tmp/public_addresses.txt"]
 
 events:
-    event0:
+    event9:
       do:
+        cut:
+          ["Node0","Node1","Node2","Node3"]
+    event0:
+      dependsOn: ["event9"]
+      do:
+        stopContainer: ["Node4"]
         join:
           container: ["Node0","Node1"]
           internal: True
-    event1:
-      dependsOn: ["event0"]
-      seconds: 2
-      do:
-        delay:
-          network: ["Node0", "Node1"]
-          time: "1000ms"
-          jitter: "20ms"
-          correlation: "33%"
-          distribution: "normal"
+        join:
+          container: ["Node2","Node3"]
+          internal: True
     event2:
-        dependsOn: ["event1","event0"]
-        seconds: 10
+        dependsOn: ["event0"]
+        seconds: 20
         do:
-            stopContainer: ["Node3"]
+          startContainer: ["Node4"]
+          join:
+            container: ["Node0","Node3","Node4"]
+            internal: True
+    event3:
+        dependsOn: ["event2"]
+        seconds: 20
+        do:
+          stopContainer: ["Node2"]
