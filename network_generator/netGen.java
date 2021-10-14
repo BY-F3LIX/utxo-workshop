@@ -11,8 +11,8 @@ public class netGen {
 
     static String IMAGE = "node";
     static String FILE_NAME = "docker-compose.yaml";
-    static int NODE_COUNT = 500;
-    static int SUBNET_COUNT = 30;
+    static int NODE_COUNT = 200;
+    static int SUBNET_COUNT = 35;
     static int RANDOM_NODES = 3; // Random nodes to connect with the connector node
     static int NormalDelay = 500;
     static String RETRIEVE_LOCATION = "/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_generator/App.jar";
