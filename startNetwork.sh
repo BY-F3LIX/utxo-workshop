@@ -2,19 +2,75 @@
 sudo rm ~/logs/* 
 sudo chmod 666 /var/run/docker.sock
 docker network prune -f 
-net0=$(docker network create net0 | cut -c 1-12)
-sudo tc qdisc add dev br-$net0 root netem delay 500ms
-net1=$(docker network create net1 | cut -c 1-12)
-sudo tc qdisc add dev br-$net1 root netem delay 500ms
-net2=$(docker network create net2 | cut -c 1-12)
-sudo tc qdisc add dev br-$net2 root netem delay 500ms
-connect0=$(docker network create connect0 | cut -c 1-12)
-sudo tc qdisc add dev br-$connect0 root netem delay 500ms
-connect1=$(docker network create connect1 | cut -c 1-12)
-sudo tc qdisc add dev br-$connect1 root netem delay 500ms
-connect2=$(docker network create connect2 | cut -c 1-12)
-sudo tc qdisc add dev br-$connect2 root netem delay 500ms
-docker-compose up -d --remove-orphans Node0 Node1 Node3 Node4 Node5 Node6 Node7 Node8 Node10 Node12 Node13 Node14 Node15 Node16 Node17 Node19 Node20 Node23 Node25 Node26 ConNode0 ConNode1 ConNode2
+docker network create net0
+docker network create net1
+docker network create net2
+docker network create net3
+docker network create net4
+docker network create net5
+docker network create net6
+docker network create net7
+docker network create net8
+docker network create net9
+docker network create net10
+docker network create net11
+docker network create net12
+docker network create net13
+docker network create net14
+docker network create net15
+docker network create net16
+docker network create connect0-0
+docker network create connect0-1
+docker network create connect0-2
+docker network create connect1-0
+docker network create connect1-1
+docker network create connect1-2
+docker network create connect2-0
+docker network create connect2-1
+docker network create connect2-2
+docker network create connect3-0
+docker network create connect3-1
+docker network create connect3-2
+docker network create connect4-0
+docker network create connect4-1
+docker network create connect4-2
+docker network create connect5-0
+docker network create connect5-1
+docker network create connect5-2
+docker network create connect6-0
+docker network create connect6-1
+docker network create connect6-2
+docker network create connect7-0
+docker network create connect7-1
+docker network create connect7-2
+docker network create connect8-0
+docker network create connect8-1
+docker network create connect8-2
+docker network create connect9-0
+docker network create connect9-1
+docker network create connect9-2
+docker network create connect10-0
+docker network create connect10-1
+docker network create connect10-2
+docker network create connect11-0
+docker network create connect11-1
+docker network create connect11-2
+docker network create connect12-0
+docker network create connect12-1
+docker network create connect12-2
+docker network create connect13-0
+docker network create connect13-1
+docker network create connect13-2
+docker network create connect14-0
+docker network create connect14-1
+docker network create connect14-2
+docker network create connect15-0
+docker network create connect15-1
+docker network create connect15-2
+docker network create connect16-0
+docker network create connect16-1
+docker network create connect16-2
+docker-compose up -d --remove-orphans Node1 Node2 Node3 Node4 Node5 Node6 Node7 Node8 Node9 Node10 Node11 Node12 Node13 Node14 Node15 Node16 Node17 Node18 Node19 Node20 Node21 Node22 Node23 Node24 Node26 Node31 Node32 Node33 Node35 Node36 Node37 Node38 Node40 Node41 Node42 Node43 Node44 Node45 Node46 Node47 Node48 Node49 Node50 Node51 Node52 Node53 Node54 Node55 Node56 Node58 Node59 Node60 Node62 Node63 Node64 Node65 Node66 Node67 Node68 Node69 Node70 Node71 Node72 Node73 Node74 Node75 Node76 Node77 Node78 Node79 Node80 Node81 Node82 Node83 Node84 Node85 Node86 Node87 Node88 Node89 Node90 Node92 Node93 Node94 Node95 Node96 Node97 Node98 Node99 Node100 Node101 Node102 Node103 Node104 Node105 Node106 Node107 Node109 Node110 Node112 Node113 Node114 Node115 Node116 Node117 Node118 Node119 Node120 Node121 Node122 Node123 Node124 Node126 Node127 Node129 Node130 Node131 Node132 Node134 Node135 Node136 Node137 Node138 Node139 Node140 Node141 Node142 Node143 Node144 Node145 Node146 Node147 Node148 Node149 Node150 Node151 Node152 Node153 Node154 Node155 Node156 Node157 Node158 Node159 Node160 Node162 Node163 Node164 Node165 Node166 Node168 Node169 Node170 Node171 Node172 Node173 Node174 Node175 Node177 Node179 Node180 Node181 Node182 Node183 Node184 Node185 Node186 Node187 Node188 Node189 Node190 Node191 Node192 Node193 Node194 Node195 Node196 Node198 Node199 Node200 Node201 Node202 Node203 Node204 Node205 Node206 Node207 Node208 Node209 Node210 Node211 Node212 Node213 Node214 Node215 Node216 Node218 Node219 Node220 Node221 Node222 Node223 Node224 Node225 Node226 Node227 Node228 Node230 Node231 Node232 Node233 Node235 Node236 Node237 Node238 Node239 Node240 Node241 Node242 Node243 Node245 Node246 Node247 Node248 Node249 Node250 Node251 Node252 Node253 Node255 Node256 Node257 Node258 Node259 Node260 Node261 Node262 Node263 Node264 Node265 Node266 Node267 Node268 Node269 Node271 Node272 Node273 Node274 Node275 Node276 Node277 Node278 Node279 Node281 Node282 Node283 Node284 Node285 Node286 Node287 Node288 Node289 Node290 Node292 Node294 Node295 Node296 Node297 Node298 Node299 Node300 Node302 Node304 Node305 Node306 Node307 Node308 Node309 Node310 Node311 Node312 Node313 Node315 Node316 Node317 Node318 Node319 Node320 Node321 Node322 Node323 Node324 Node325 Node326 Node327 Node328 Node329 Node330 Node331 Node332 Node334 Node335 Node336 Node337 Node338 Node339 Node340 Node341 Node342 Node343 Node344 Node345 Node346 Node347 Node348 Node349 Node350 Node351 Node352 Node353 Node354 Node355 Node356 Node357 Node358 Node359 Node360 Node361 Node362 Node363 Node364 Node367 Node368 Node369 Node370 Node371 Node373 Node374 Node375 Node376 Node377 Node378 Node379 Node380 Node381 Node383 Node384 Node385 Node386 Node387 Node388 Node389 Node390 Node391 Node392 Node394 Node395 Node396 Node397 Node398 Node399 Node400 Node401 Node402 Node403 Node404 Node405 Node406 Node408 Node409 Node411 Node412 Node413 Node414 Node415 Node416 Node417 Node418 Node420 Node421 Node422 Node423 Node424 Node425 Node426 Node427 Node428 Node429 Node430 Node431 Node432 Node433 Node434 Node435 Node436 Node437 Node438 Node440 Node441 Node443 Node444 Node446 Node447 Node448 Node449 Node450 Node451 Node452 Node453 Node454 Node455 Node457 Node458 Node459 Node460 Node461 Node462 Node463 Node464 Node465 Node467 Node468 Node469 Node470 Node471 Node472 Node473 Node474 Node475 Node476 Node477 Node479 Node480 Node481 Node483 Node485 Node486 Node487 Node489 Node490 Node491 Node492 Node493 Node494 Node495 Node496 Node497 Node498 Node499 Node500 Node501 Node502 Node503 Node504 Node505 Node506 Node507 Node508 Node509 Node510 Node511 Node512 Node513 Node514 Node515 Node516
 sleep 10
 java -jar /home/felix/Documents/programming/felix_utxo/utxo-workshop/network_generator/App.jar
-docker-compose up -d --remove-orphans Node2 Node9 Node11 Node18 Node21 Node22 Node24
+docker-compose up -d --remove-orphans Node0 Node25 Node27 Node28 Node29 Node30 Node34 Node39 Node57 Node61 Node91 Node108 Node111 Node125 Node128 Node133 Node161 Node167 Node176 Node178 Node197 Node217 Node229 Node234 Node244 Node254 Node270 Node280 Node291 Node293 Node301 Node303 Node314 Node333 Node365 Node366 Node372 Node382 Node393 Node407 Node410 Node419 Node439 Node442 Node445 Node456 Node466 Node478 Node482 Node484 Node488

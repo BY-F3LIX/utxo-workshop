@@ -1,10 +1,11 @@
 FROM ubuntu:20.10
 
-COPY ./target/release/utxo-workshop ./target/release/utxo-workshop
-COPY run.sh run.sh
 
 RUN apt-get update
-RUN apt-get install -y libc6
+RUN apt-get install -y libc6 net-tools iproute2 iputils-ping
+
+COPY ./target/release/utxo-workshop ./target/release/utxo-workshop
+COPY run.sh run.sh
 
 #ENTRYPOINT [ "bash","run.sh","2>", "/var/tmp/output.log"]
 ENTRYPOINT ["/bin/bash","./run.sh"]

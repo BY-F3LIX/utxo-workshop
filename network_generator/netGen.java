@@ -11,10 +11,9 @@ public class netGen {
 
     static String IMAGE = "node";
     static String FILE_NAME = "docker-compose.yaml";
-    static int NODE_COUNT = 27;
-    static int SUBNET_COUNT = 10;
+    static int NODE_COUNT = 500;
+    static int SUBNET_COUNT = 30;
     static int RANDOM_NODES = 3; // Random nodes to connect with the connector node
-    static int DELAY = 500;
     static int NormalDelay = 500;
     static String RETRIEVE_LOCATION = "/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_generator/App.jar";
 
@@ -26,10 +25,11 @@ public class netGen {
 
     public static void main(String[] args) {
         Node.MAX_PEER_COUNT = 35;
-        // makeLineTop();
+        Node.DELAY = 0;
+        //makeLineTop(); DONT USE
         //lineTop();
-         generateCompose();
-         generateBash();
+        generateCompose();
+        generateBash();
 
     }
 
@@ -40,15 +40,7 @@ public class netGen {
         content += "docker network prune -f \n";
 
         for (String string : networks) {
-            if (string.contains("connect")) {
-                content += string + "=$(docker network create " + string + " | cut -c 1-12)\n";
-
-                content += "sudo tc qdisc add dev br-$" + string + " root netem delay " + DELAY + "ms\n";
-            } else {
-                content += string + "=$(docker network create " + string + " | cut -c 1-12)\n";
-
-                content += "sudo tc qdisc add dev br-$" + string + " root netem delay " + DELAY + "ms\n";
-            }
+            content += "docker network create " + string + "\n";
         }
 
         content += "docker-compose up -d --remove-orphans";
@@ -114,20 +106,21 @@ public class netGen {
 
         if (net > 0) {
             for (int i = 0; i < net + 1; i++) {
-                Node tempNode = new Node("ConNode" + i, false, true);
-                tempNode.networks.add("connect" + i);
-                networks.add("connect" + i);
-                nodes.add(tempNode);
+                Node tempNode = new Node("Node" + (i+NODE_COUNT), false, true);
                 for (int j = 0; j < RANDOM_NODES; j++) {
+                    tempNode.networks.add("connect" + i + "-" + j);
+                    networks.add("connect" + i  + "-" + j);
+
                     int number = rand.nextInt(NODE_COUNT);
-                    if (nodes.get(number).otherNetworks.contains("connect" + i)) {
+                    if (nodes.get(number).otherNetworks.contains("connect" + i  + "-" + j)) {
                         j--;
                         continue;
                     }
-                    nodes.get(number).otherNetworks.add("connect" + i);
+                    nodes.get(number).otherNetworks.add("connect" + i  + "-" + j);
                     from += " " + (int) (i + NODE_COUNT);
                     to += " " + number;
                 }
+                nodes.add(tempNode);
             }
         }
 
@@ -150,6 +143,7 @@ public class netGen {
     }
 
     public static void makeLineTop() {
+        // DONT USE
         int net = 0;
         networks.add("net" + net);
         for (int i = 0; i < NODE_COUNT; i++) {
@@ -202,15 +196,7 @@ public class netGen {
         content += "docker network prune -f \n";
 
         for (String string : networks) {
-            if (string.contains("connect")) {
-                content += string + "=$(docker network create " + string + " | cut -c 1-12)\n";
-
-                content += "sudo tc qdisc add dev br-$" + string + " root netem delay 200ms\n";
-            } else {
-                content += string + "=$(docker network create " + string + " | cut -c 1-12)\n";
-
-                content += "sudo tc qdisc add dev br-$" + string + " root netem delay " + NormalDelay + "ms\n";
-            }
+            content += "docker network create " + string + "\n";
         }
 
         for (Node node : nodes) {
@@ -247,7 +233,7 @@ public class netGen {
         int net = 0;
         Node previousNode = null;
         for (int i = 0; i < NODE_COUNT; i++) {
-            Node tempNode = new Node("Node" + i, false, false);
+            Node tempNode = new Node("Node" + i, false, true);
             tempNode.withList = true;
             if (i == 0) {
                 tempNode.validator = true;
@@ -259,7 +245,7 @@ public class netGen {
             if (previousNode != null) {
                 previousNode.networks.add("net" + i);
             }
-            
+
             nodes.add(tempNode);
             previousNode = tempNode;
 
@@ -287,21 +273,14 @@ public class netGen {
         writeFile(from, "from");
         writeFile(to, "to");
 
-
-
-
-
         String content = "#!/bin/bash\n";
         content += "sudo rm ~/logs/* \n";
         content += "sudo chmod 666 /var/run/docker.sock\n";
         content += "docker network prune -f \n";
 
         for (String string : networks) {
-            content += string + "=$(docker network create " + string + " | cut -c 1-12)\n";
-
-            content += "sudo tc qdisc add dev br-$" + string + " root netem delay " + DELAY + "ms\n";
+            content += "docker network create " + string + "\n";
         }
-
 
         for (Node node : nodes) {
             content += "docker-compose up -d --remove-orphans " + node.name + "\n";
@@ -309,35 +288,32 @@ public class netGen {
             content += "java -jar " + RETRIEVE_LOCATION + "\n";
         }
 
-
-        //boolean skip = true;;
-        //content += "docker-compose up -d --remove-orphans";
-        //for (Node node : nodes) {
-        //    skip = !skip;
-        //    if(skip){
-        //        continue;
-        //    }
-        //    content += " " + node.name;
-        //    
-        //}
-        //content += "\n";
-//
-        //content += "sleep 10\n";
-        //content += "java -jar " + RETRIEVE_LOCATION + "\n";
-//
-        //skip = false;
-        //content += "docker-compose up -d --remove-orphans";
-        //for (Node node : nodes) {
-        //    skip = !skip;
-        //    if(skip){
-        //        continue;
-        //    }
-        //    content += " " + node.name;
-        //    
-        //}
-        //content += "\n";
-
-        
+        // boolean skip = true;;
+        // content += "docker-compose up -d --remove-orphans";
+        // for (Node node : nodes) {
+        // skip = !skip;
+        // if(skip){
+        // continue;
+        // }
+        // content += " " + node.name;
+        //
+        // }
+        // content += "\n";
+        //
+        // content += "sleep 10\n";
+        // content += "java -jar " + RETRIEVE_LOCATION + "\n";
+        //
+        // skip = false;
+        // content += "docker-compose up -d --remove-orphans";
+        // for (Node node : nodes) {
+        // skip = !skip;
+        // if(skip){
+        // continue;
+        // }
+        // content += " " + node.name;
+        //
+        // }
+        // content += "\n";
 
         writeFile(content, "startNetwork.sh");
 
@@ -372,6 +348,7 @@ class Node {
     static String IMAGE = "node";
     static int SPACES = 2;
     static int MAX_PEER_COUNT = 20;
+    static int DELAY = 100;
 
     String name;
     String cmd = "";
@@ -413,6 +390,11 @@ class Node {
             result += " ".repeat(SPACES * offset) + " ".repeat(SPACES * 2) + "- " + net + "\n";
         }
 
+        if(connector){
+            result += " ".repeat(SPACES * offset) + " ".repeat(SPACES * 1) + "cap_add:\n";
+            result += " ".repeat(SPACES * offset) + " ".repeat(SPACES * 2) + "- NET_ADMIN\n";
+        }
+
         return result;
     }
 
@@ -424,6 +406,11 @@ class Node {
             result += ",\" " + cmd + " --max-parallel-downloads " + MAX_PEER_COUNT + "\"";
         if (otherNetworks.size() > 0 || withList)
             result += ",\"/var/tmp/public_addresses.txt\"";
+        else
+            result += ",\"/var/tmp/public_addresses.txt\"";
+        if (connector && DELAY > 0) {
+            result += ",\"" + DELAY + "\"";
+        }
         return result;
     }
 

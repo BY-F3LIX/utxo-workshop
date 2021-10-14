@@ -10,5 +10,6 @@
 
 **/logs/
 **/build/
+**/gifPNGs
 
 *.class
