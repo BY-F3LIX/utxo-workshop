@@ -1,20 +1,16 @@
 # Libraries
 library(ggplot2)
 library(igraph)
+library(scales)
 
-pdf("withOut_Delay.pdf")
-
-# create data
-xValue <- 1:10
-yValue <- cumsum(rnorm(10))
-
+pdf("GausDrei.pdf")
 
 {
   #selected blocks
   library(ggplot2)
   blocks = scan("/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_log_parser/longestTime")
   xValue = 1:blocks[1]
-  blocks[1] <- 4200
+  #blocks[1] <- 550
   plot(1, type="n", xlab="ms", ylab="#nodes", xlim=c(0, blocks[1]), ylim=c(1, blocks[3]))
   #plot(1, type="n", xlab="ms", ylab="#nodes", xlim=c(0, 300), ylim=c(1, blocks[3]))
   custom <- 13:19
@@ -41,6 +37,10 @@ yValue <- cumsum(rnorm(10))
     debugInt <- blocks[1] - length(scaned)
     print(scaned[length(scaned)])
     lastInt = scaned[length(scaned)]
+    debug <- length(scaned)
+    if (length(scaned) == 0){
+      break
+    }
     if(is.na(scaned[length(scaned)])){
       break
     }
@@ -60,9 +60,9 @@ yValue <- cumsum(rnorm(10))
 #layout_with_dh(), layout_with_fr(), layout_with_gem(), layout_with_graphopt(), layout_with_kk(), 
 #layout_with_lgl(), layout_with_mds(), layout_with_sugiyama(), merge_coords(), norm_coords(), normalize()
 
-SEED <- 42
+SEED <- 45
 
-{
+{ 
   # NETWORK
   library(igraph)
   set.seed(SEED)
@@ -72,6 +72,12 @@ SEED <- 42
   edges <- list(from, to)
   routes_igraph <- graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
   V(routes_igraph)$role <- c("validator" , rep("node", max(nodes)))
+  #V(routes_igraph)$role[31] <- "validator"
+  #V(routes_igraph)$role[21] <- "validator"
+  #V(routes_igraph)$role[19] <- "validator"
+  #V(routes_igraph)$role[28] <- "validator"
+  #V(routes_igraph)$role[1] <- "node"
+  #V(routes_igraph)$role[21] <- "validator"
   plot(routes_igraph, layout = layout_with_graphopt, edge.arrow.size = 0, vertex.color=c("pink", "skyblue")[1+(V(routes_igraph)$role=="node")])
   #plot(routes_igraph, edge.arrow.size = 0)
 }
@@ -108,5 +114,25 @@ SEED <- 42
   
   #plot(routes_igraph, edge.arrow.size = 0)
 }
+
+
+#GAUS
+{
+  times <- scan("/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_log_parser/Gaus")
+  sort(times)
+  a <- table(times)
+  a[names(a)==7]
+  Var1 <- max(times)
+  df1 <- as.data.frame(table(times))
+  ggplot(df1, aes(as.integer(times), Freq)) +
+    geom_bar(stat = "identity", fill = "red", alpha = 0.5) +
+    geom_smooth(method = stats::loess, 
+                formula = y ~ x, 
+                color = "blue", fill = "blue",
+                alpha = 0.5)
+}
+
+
+
 
 dev.off()

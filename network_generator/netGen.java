@@ -11,10 +11,10 @@ public class netGen {
 
     static String IMAGE = "node";
     static String FILE_NAME = "docker-compose.yaml";
-    static int NODE_COUNT = 200;
-    static int SUBNET_COUNT = 35;
-    static int RANDOM_NODES = 3; // Random nodes to connect with the connector node
-    static int NormalDelay = 500;
+    static int NODE_COUNT = 350;
+    static int SUBNET_COUNT = 120;
+    static int RANDOM_NODES = 4; // Random nodes to connect with the connector node
+    static int CONNECTORS = 5;
     static String RETRIEVE_LOCATION = "/home/felix/Documents/programming/felix_utxo/utxo-workshop/network_generator/App.jar";
 
     static ArrayList<String> networks = new ArrayList<>();
@@ -44,8 +44,14 @@ public class netGen {
         }
 
         content += "docker-compose up -d --remove-orphans";
+        int counter = 0;
         for (Node node : nodes) {
             if (node.otherNetworks.size() == 0) {
+                if(counter > 20){
+                    content += "\ndocker-compose up -d --remove-orphans";
+                    counter = 0;
+                }
+                counter++;
                 content += " " + node.name;
             }
         }
@@ -97,15 +103,17 @@ public class netGen {
             nodes.add(tempNode);
 
             // for Graph
-            for (Integer others : inNetwork) {
-                from += " " + i;
-                to += " " + others;
-            }
+            //for (Integer others : inNetwork) {
+            //    from += " " + i;
+            //    to += " " + others;
+            //}
             inNetwork.add(i);
         }
 
+        System.out.println("made nodes");
+
         if (net > 0) {
-            for (int i = 0; i < net + 1; i++) {
+            for (int i = 0; i < ((CONNECTORS > 0) ?  CONNECTORS:net + 2); i++) {
                 Node tempNode = new Node("Node" + (i+NODE_COUNT), false, true);
                 for (int j = 0; j < RANDOM_NODES; j++) {
                     tempNode.networks.add("connect" + i + "-" + j);
@@ -123,6 +131,7 @@ public class netGen {
                 nodes.add(tempNode);
             }
         }
+        System.out.println("made connectors");
 
         String compose = "version: '3.3'\nservices:\n";
 

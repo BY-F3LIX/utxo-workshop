@@ -18,6 +18,7 @@ public class parseLogs {
     static ArrayList<ArrayList<Pair<Long, Integer>>> timestampsWithId = new ArrayList<>();
 
     static int BLOCK = 5;
+    static int STARTBLOCK = 50;
 
     public static void main(String[] args) {
         File[] files = new File(PATH).listFiles();
@@ -31,7 +32,7 @@ public class parseLogs {
     }
 
     public static void makeGif(ArrayList<Pair<Long,Integer>> times, String fileName) {
-        int frames = 20;
+        int frames = 10;
         int msPerFrame = 0;
 
         try {
@@ -88,7 +89,8 @@ public class parseLogs {
 
         try {
             FileWriter writer = new FileWriter(fileName);
-            for (int block = 1; block < times.size(); block++) {
+            FileWriter writerGaus = new FileWriter("Gaus");
+            for (int block = STARTBLOCK; block < times.size(); block++) {
 
                 SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss.SSS");
 
@@ -110,6 +112,13 @@ public class parseLogs {
                             atTime[i]++;
                     }
                 }
+                Arrays.sort(timesLong);
+                String gausOutput = Arrays.toString(Arrays.copyOfRange(timesLong, 1, timesLong.length -1 ));
+                System.out.println(gausOutput);
+                gausOutput = gausOutput.replace("[", "");
+                gausOutput = gausOutput.replace("]", "");
+                gausOutput = gausOutput.replace(",", "");
+                writerGaus.write(gausOutput + " ");
                 // writer.write("" + date.getTime() + " ");
                 // writer.write(Arrays.toString(atTime));
 
@@ -120,6 +129,7 @@ public class parseLogs {
 
             }
             writer.close();
+            writerGaus.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,6 +188,7 @@ public class parseLogs {
         // Pattern nameLinePattern = Pattern.compile(".*(Node name: )\\S*$");
         // Pattern roleLinePattern = Pattern.compile(".*(Role: )\\S*$");
         Pattern importedPattern = Pattern.compile(".*(Imported #)(\\d+).*");
+        ArrayList<Integer> checkedBlocks = new ArrayList<>();
         try {
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {
@@ -196,12 +207,17 @@ public class parseLogs {
 
                 if (importedPattern.matcher(data).matches()) {
                     String[] temp = data.split(" ");
-                    int block = Integer.parseInt(temp[temp.length - 2].substring(1));
-                    while (timestamps.size() < block) {
-                        timestamps.add(new ArrayList<>());
-                    }
                     String time = data.split(" ")[1];
-                    timestamps.get(block - 1).add(time);
+                    int block = Integer.parseInt(temp[temp.length - 2].substring(1));
+                    if(checkedBlocks.contains(block)){
+                        timestamps.get(block - 1).set(timestamps.get(block-1).size() - 1, time);
+                    }else{
+                        checkedBlocks.add(block);
+                        while (timestamps.size() < block) {
+                            timestamps.add(new ArrayList<>());
+                        }
+                        timestamps.get(block - 1).add(time);
+                    }
                 }
 
             }

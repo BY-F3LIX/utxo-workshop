@@ -6,23 +6,20 @@ if [[ -z $name ]]; then
 fi
 bootnodes=""
 if [[ -n $3 ]]; then
-    bootnodes="--bootnodes $(<$3)"
-    if [[ -z $(<$3) ]]; then
-        bootnodes=""
-        echo "List Empty"
+    if [[ -n $(<$3) ]]; then
+        bootnodes="--bootnodes $(<$3)"
+        #List Empty
     fi
 fi
 
 if [[ -n $4 ]]; then
-    echo "add delay:"
+    #add delay:
     interfaces=$(ifconfig |  grep -Eo 'eth[0-9]+')
-    ping -c 3 www.google.com
     for i in $interfaces
     do
         tc qdisc add dev $i root netem delay $4ms
         echo "added $4ms * x delay to $i"
     done
-    ping -c 3 www.google.com
     
 fi
 
