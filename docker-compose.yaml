@@ -21,6 +21,7 @@ services:
     command: ["Node2" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect2-2
   Node3:
     image: node
     volumes:
@@ -154,7 +155,6 @@ services:
     command: ["Node21" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect2-2
   Node22:
     image: node
     volumes:
@@ -253,6 +253,7 @@ services:
     command: ["Node35" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect1-2
   Node36:
     image: node
     volumes:
@@ -414,7 +415,6 @@ services:
     command: ["Node58" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect0-3
   Node59:
     image: node
     volumes:
@@ -464,6 +464,7 @@ services:
     command: ["Node65" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect1-0
   Node66:
     image: node
     volumes:
@@ -478,7 +479,6 @@ services:
     command: ["Node67" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect1-2
   Node68:
     image: node
     volumes:
@@ -493,6 +493,7 @@ services:
     command: ["Node69" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect4-0
   Node70:
     image: node
     volumes:
@@ -514,7 +515,6 @@ services:
     command: ["Node72" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect3-2
   Node73:
     image: node
     volumes:
@@ -613,6 +613,7 @@ services:
     command: ["Node86" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect0-1
   Node87:
     image: node
     volumes:
@@ -620,6 +621,7 @@ services:
     command: ["Node87" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect0-0
   Node88:
     image: node
     volumes:
@@ -648,7 +650,6 @@ services:
     command: ["Node91" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect2-1
   Node92:
     image: node
     volumes:
@@ -691,7 +692,6 @@ services:
     command: ["Node97" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect3-3
   Node98:
     image: node
     volumes:
@@ -741,7 +741,6 @@ services:
     command: ["Node104" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect4-2
   Node105:
     image: node
     volumes:
@@ -784,7 +783,6 @@ services:
     command: ["Node110" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
-      - connect3-0
   Node111:
     image: node
     volumes:
@@ -848,6 +846,7 @@ services:
     command: ["Node119" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net0
+      - connect3-1
   Node120:
     image: node
     volumes:
@@ -932,6 +931,7 @@ services:
     command: ["Node131" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect1-3
   Node132:
     image: node
     volumes:
@@ -953,6 +953,7 @@ services:
     command: ["Node134" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect1-1
   Node135:
     image: node
     volumes:
@@ -988,7 +989,6 @@ services:
     command: ["Node139" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
-      - connect1-3
   Node140:
     image: node
     volumes:
@@ -1017,6 +1017,7 @@ services:
     command: ["Node143" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect3-2
   Node144:
     image: node
     volumes:
@@ -1052,6 +1053,7 @@ services:
     command: ["Node148" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect0-3
   Node149:
     image: node
     volumes:
@@ -1094,6 +1096,7 @@ services:
     command: ["Node154" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect3-3
   Node155:
     image: node
     volumes:
@@ -1136,6 +1139,7 @@ services:
     command: ["Node160" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect0-2
   Node161:
     image: node
     volumes:
@@ -1241,6 +1245,7 @@ services:
     command: ["Node175" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect2-1
   Node176:
     image: node
     volumes:
@@ -1248,7 +1253,6 @@ services:
     command: ["Node176" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
-      - connect4-0
   Node177:
     image: node
     volumes:
@@ -1452,6 +1456,7 @@ services:
     command: ["Node205" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect4-3
   Node206:
     image: node
     volumes:
@@ -1459,7 +1464,6 @@ services:
     command: ["Node206" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
-      - connect0-1
   Node207:
     image: node
     volumes:
@@ -1474,7 +1478,6 @@ services:
     command: ["Node208" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
-      - connect1-1
   Node209:
     image: node
     volumes:
@@ -1517,7 +1520,6 @@ services:
     command: ["Node214" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
-      - connect4-3
   Node215:
     image: node
     volumes:
@@ -1602,6 +1604,7 @@ services:
     command: ["Node226" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net1
+      - connect4-2
   Node227:
     image: node
     volumes:
@@ -1714,6 +1717,7 @@ services:
     command: ["Node242" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
+      - connect4-1
   Node243:
     image: node
     volumes:
@@ -1721,7 +1725,6 @@ services:
     command: ["Node243" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect0-2
   Node244:
     image: node
     volumes:
@@ -1806,7 +1809,6 @@ services:
     command: ["Node255" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect3-1
   Node256:
     image: node
     volumes:
@@ -1856,7 +1858,6 @@ services:
     command: ["Node262" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect1-0
   Node263:
     image: node
     volumes:
@@ -2011,6 +2012,7 @@ services:
     command: ["Node284" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
+      - connect3-0
   Node285:
     image: node
     volumes:
@@ -2032,7 +2034,6 @@ services:
     command: ["Node287" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect0-0
   Node288:
     image: node
     volumes:
@@ -2089,6 +2090,7 @@ services:
     command: ["Node295" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
+      - connect2-3
   Node296:
     image: node
     volumes:
@@ -2124,7 +2126,6 @@ services:
     command: ["Node300" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect4-1
   Node301:
     image: node
     volumes:
@@ -2181,7 +2182,6 @@ services:
     command: ["Node308" ,"  --max-parallel-downloads 35","/var/tmp/public_addresses.txt"]
     networks:
       - net2
-      - connect2-3
   Node309:
     image: node
     volumes:
