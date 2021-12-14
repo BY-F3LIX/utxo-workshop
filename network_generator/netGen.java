@@ -354,7 +354,7 @@ public class netGen {
  * Node
  */
 class Node {
-    static String IMAGE = "node";
+    static String IMAGE = "byf3lix/sub-node";
     static int SPACES = 2;
     static int MAX_PEER_COUNT = 20;
     static int DELAY = 100;
