@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class netGen {
 
-    static String IMAGE = "node";
+    static String IMAGE = "byf3lix/sub-node";
     static String FILE_NAME = "docker-compose.yaml";
     static int NODE_COUNT = 350;
     static int SUBNET_COUNT = 120;
